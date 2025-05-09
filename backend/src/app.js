@@ -4,8 +4,7 @@ import cors from "cors";
 
 const app = express();
 
-
-app.use(cors())
+app.use(cors());
 app.use(express.json({ limit: "32kb" }));
 
 // This middleware allows your Express app to parse URL-encoded form data (e.g., from HTML forms).
@@ -25,4 +24,7 @@ app.use(express.static("public"));
 // Example: If a request has Cookie: sessionId=abc123, this middleware makes it available in req.cookies.sessionId.
 // TODO:Haan! cookieParser() ka use tokens (jaise JWT) ko cookies se read karne ke liye hota hai — taaki hum unse user ka data access kar sakein aur authentication/authorization kar sakein.
 
-export {app}
+import userRouter from "./routes/user.routes.js";
+app.use("/api/user", userRouter);
+
+export { app };

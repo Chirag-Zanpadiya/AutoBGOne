@@ -10,11 +10,27 @@ dotenv.config({
 
 const PORT = process.env.PORT || 4000;
 
-await connectDB();
+connectDB()
+  .then(() => {
+    app.get("/", (req, res) => {
+      res.send("hii i am chirag ");
+    });
 
-app.get("/", (req, res) => {
-  res.send("Hi, I am Chirag");
-});
+    app.on("error", (error) => {
+      console.log(`Application Errors :  ${error}`);
+      //   throw error
+      process.exit(1);
+    });
+
+    app.listen(process.env.PORT || 8000, () => {
+      console.log(
+        `SERVER IS RUNNING AT PORTNUMBER : http://localhost:${process.env.PORT}`
+      );
+    });
+  })
+  .catch((err) => {
+    console.log(`MONGODB CONNECTION FAILED :: src/index.js :: ${err}`);
+  });
 
 export default app;
 
