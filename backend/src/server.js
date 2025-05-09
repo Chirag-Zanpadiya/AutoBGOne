@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 4000;
 connectDB()
   .then(() => {
     app.get("/", (req, res) => {
-      res.send("hii i am chirag ");
+      res.send("hii i am chirag i from zanpadiya 0405 ");
     });
 
     app.on("error", (error) => {
