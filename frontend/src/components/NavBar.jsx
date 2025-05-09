@@ -39,15 +39,24 @@
 
 // export default NavBar;
 
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { assets } from "../assets/assets.js";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useClerk, UserButton, useUser } from "@clerk/clerk-react";
+import { AppContext } from "../context/AppContext.jsx";
 
 const NavBar = () => {
   const { openSignIn } = useClerk();
   const { isSignedIn, user } = useUser();
+  const { credit, loadCreditsData } = useContext(AppContext);
+
+  // TODO: agar user signin hai tohi loadCreditsData ko call karuga
+  useEffect(() => {
+    if (isSignedIn) {
+      loadCreditsData();
+    }
+  }, [isSignedIn]);
   return (
     <div className="relative z-50 bg-[#0F0F0F] py-4">
       {/* Navbar Container */}
@@ -63,7 +72,11 @@ const NavBar = () => {
         </Link>
 
         {isSignedIn ? (
-          <div>
+          <div className="flex items-center gap-2 sm:gap-3">
+            <button className="flex items-center gap-2 bg-blue-100 px-4 sm:px-7 py-1.5 sm:py-2.5 rounded-full hover:scale-105 transition-all duration-700 ">
+              <img className="w-5" src={assets.credit_icon} alt="credit_icon" />
+              <p className="text-blue-500 text-xs sm:text-sm font-medium ">Credits : {credit}</p>
+            </button>
             <UserButton />
           </div>
         ) : (

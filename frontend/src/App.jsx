@@ -6,9 +6,12 @@ import BuyCredit from "./pages/BuyCredit";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Contact from "./components/Contact";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
 const App = () => {
   return (
     <div className="min-h-screen bg-[#0F0F0F]">
+      <ToastContainer  position="bottom-right"/>
       <NavBar />
     
       <Routes>
