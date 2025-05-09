@@ -10,25 +10,32 @@ dotenv.config({
 
 const PORT = process.env.PORT || 4000;
 
-connectDB()
-  .then(() => {
-    app.get("/", (req, res) => {
-      res.send("hii i am chirag");
-    });
+await connectDB();
 
-    app.on("error", (error) => {
-      console.log(`Application Errors :  ${error}`);
-      //   throw error
-      process.exit(1);
-    });
+app.get("/", (req, res) => {
+  res.send("Hi, I am Chirag");
+});
 
-    app.listen(PORT, () => {
-      console.log(`http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.log(`MONGODB CONNECTION FAILED :: src/index.js :: ${err}`);
-  });
+export default app;
+
+// .then(() => {
+//   app.get("/", (req, res) => {
+//     res.send("hii i am chirag");
+//   });
+
+//   app.on("error", (error) => {
+//     console.log(`Application Errors :  ${error}`);
+//     //   throw error
+//     process.exit(1);
+//   });
+
+//   app.listen(PORT, () => {
+//     console.log(`http://localhost:${PORT}`);
+//   });
+// })
+// .catch((err) => {
+//   console.log(`MONGODB CONNECTION FAILED :: src/index.js :: ${err}`);
+// });
 
 // middlewares
 
