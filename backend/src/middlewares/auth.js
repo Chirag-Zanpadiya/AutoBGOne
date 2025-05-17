@@ -13,12 +13,12 @@ const authUser = async (req, res, next) => {
     }
 
     const token_decode = jwt.decode(token);
-    console.log("token_decoded");
+    // console.log("token_decoded");
 
-    console.log(token_decode.clerkId);
+    // console.log(token_decode.clerkId);
 
-    console.log(`req`);
-    console.log(req);
+    // console.log(`req`);
+    // console.log(req);
 
     req.body = req.body || {};
     req.body.clerkId = token_decode.clerkId;

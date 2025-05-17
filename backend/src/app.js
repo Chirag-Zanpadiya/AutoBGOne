@@ -25,6 +25,7 @@ app.use(express.static("public"));
 // TODO:Haan! cookieParser() ka use tokens (jaise JWT) ko cookies se read karne ke liye hota hai — taaki hum unse user ka data access kar sakein aur authentication/authorization kar sakein.
 
 import userRouter from "./routes/user.routes.js";
+import imageRouter from "./routes/image.routes.js";
 app.use("/api/user", userRouter);
-
+app.use("/api/image" , imageRouter)
 export { app };

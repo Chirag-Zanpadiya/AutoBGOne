@@ -1,7 +1,12 @@
 import React, { useState } from "react";
+import { useContext } from "react";
 import Tilt from "react-parallax-tilt";
+import { AppContext } from "../context/AppContext";
 
 const Upload = () => {
+
+  const {removeBG}= useContext(AppContext)
+
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
 
@@ -10,6 +15,7 @@ const Upload = () => {
     if (selectedFile) {
       setFile(selectedFile);
       setPreview(URL.createObjectURL(selectedFile));
+      removeBG(selectedFile)
     }
   };
 
@@ -51,7 +57,7 @@ const Upload = () => {
           {!preview ? (
             <>
               <label
-                htmlFor="fileUpload"
+                htmlFor="upload2"
                 className="cursor-pointer flex flex-col items-center gap-3"
               >
                 <div className="text-4xl">📁</div>
@@ -61,7 +67,7 @@ const Upload = () => {
                 <div className="text-sm text-gray-400">or click to browse</div>
               </label>
               <input
-                id="fileUpload"
+                id="upload2"
                 type="file"
                 accept="image/*"
                 className="hidden"

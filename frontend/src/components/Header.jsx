@@ -57,8 +57,12 @@ import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { FaUpload } from "react-icons/fa";
 import { assets } from "../assets/assets";
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
 
 const Header = () => {
+  const { removeBG } = useContext(AppContext);
+
   const ref = useRef(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -85,8 +89,6 @@ const Header = () => {
 
   return (
     <section id="home" className="py-20 px-4 md:px-16 bg-[#0f0f0f] text-white">
-    
-
       {/* Hover-enabled 3D Effect Card */}
       <motion.div
         ref={ref}
@@ -117,13 +119,15 @@ const Header = () => {
             </p>
 
             <div>
-              <input type="file" name="" id="upload1" hidden />
+              <input onChange={(e)=>removeBG(e.target.files[0])} type="file" accept="image/*" id="upload1" hidden />
               <label
                 className="mt-4 inline-flex items-center gap-3 px-4 py-3 rounded-full cursor-pointer bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 transition duration-300 ease-in-out"
                 htmlFor="upload1"
               >
                 <FaUpload size={20} className="text-white" />
-                <p className="text-white text-lg font-medium">Upload Your Image</p>
+                <p className="text-white text-lg font-medium">
+                  Upload Your Image
+                </p>
               </label>
             </div>
           </div>

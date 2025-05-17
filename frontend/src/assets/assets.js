@@ -61,24 +61,28 @@ export const plans = [
     price: 15,
     credits: 2,
     desc: "Best for quick, one-off tasks like profile or product pictures. Get fast, affordable background removal with this entry-level plan.",
+    isUnlimited: false,
   },
   {
     id: "Standard",
     price: 19,
     credits: 4,
     desc: "Designed for small businesses and content creators. Process more images while keeping your visuals clean and professional.",
+    isUnlimited: false,
   },
   {
     id: "Premium",
     price: 49,
     credits: 10,
     desc: "Ideal for professionals and online sellers. A cost-effective solution for handling background removal in bulk.",
+    isUnlimited: false,
   },
   {
     id: "Pro",
     price: 250,
-    credits: "unlimited",
+    credits: "unlimited/month",
     desc: "Unlimited access for agencies and e-commerce power users. Handle high volumes without worrying about limits or extra charges.",
+    isUnlimited: true,
   },
 ];
 
