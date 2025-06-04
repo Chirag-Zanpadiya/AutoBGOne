@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 4000;
 connectDB()
   .then(() => {
     app.get("/", (req, res) => {
-      res.send("Welcome to AutoBgOne WebSite 0405 from chirag zanpadiya");
+      res.send("Welcome to AutoBgOne WebSite 0405 from chirag zanpadiya chirag");
     });
 
     app.on("error", (error) => {
