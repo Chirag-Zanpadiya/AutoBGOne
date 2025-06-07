@@ -9,11 +9,6 @@ const removeBGImage = async (req, res) => {
   try {
     const { clerkId } = req.body;
 
-    console.log(`removeBGImage :: req.boyd :: `);
-    console.log(req.body);
-
-    console.log(`removeBGImage :: clerkId :: `);
-    console.log(clerkId);
 
     const user = await User.findOne({ clerkId });
 
