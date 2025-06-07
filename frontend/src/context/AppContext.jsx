@@ -86,6 +86,7 @@ const AppContextProvider = (props) => {
         }
       }
     } catch (error) {
+      console.log('appcontext.jsx ::romoveBG :: catch bloack', error)
       toast.error(error.message);
     }
   };
