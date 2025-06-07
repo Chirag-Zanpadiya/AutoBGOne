@@ -7,6 +7,8 @@ import { Transaction } from "../models/transaction.model.js";
 const clerkWebhooks = async (req, res) => {
   try {
     // create svix instance with clerk webhooks secret
+    console.log(`user.controller.js :: clerkwebhooks :: req.body :: ${req.body}`  );
+    
 
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
