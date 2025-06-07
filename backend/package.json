@@ -7,7 +7,7 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node src/server.js",
     "server" : "nodemon -r dotenv/config --experimental-json-modules src/server.js"
   },
   "dependencies": {
