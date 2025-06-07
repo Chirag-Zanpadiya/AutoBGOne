@@ -8,6 +8,8 @@ import { User } from "../models/user.model.js";
 const removeBGImage = async (req, res) => {
   try {
     const { clerkId } = req.body;
+    console.log(`removeBGImage :: clerkId :: ${clerkId}`);
+    
 
     const user = await User.findOne({ clerkId });
 
