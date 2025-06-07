@@ -14,7 +14,7 @@ const removeBGImage = async (req, res) => {
     const user = await User.findOne({ clerkId });
 
     if (!user) {
-      return res.json({ success: false, message: "User Not Found" });
+      return res.json({ success: false, message: "image.controller.js :: User Not Found" });
     }
 
     if (user.creditBalance === 0) {
