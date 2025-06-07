@@ -41,7 +41,7 @@ app.use("/api/user/webhooks", express.raw({ type: "*/*" }));
 
 // Now parse JSON and urlencoded after that
 // app.use(express.json({ limit: "32kb" }));
-app.use(express.urlencoded({ extended: true, limit: "32kb" }));
+// app.use(express.urlencoded({ extended: true, limit: "32kb" }));
 app.use(cors({
   origin: "*", // or restrict to vercel URL if needed
 }));
