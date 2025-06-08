@@ -83,11 +83,10 @@ ClipDrop API key
 
 📤 HeroSection :
 # Output:
-![Screenshot 2025-06-08 104713](https://github.com/user-attachments/assets/973fb3d9-c413-4e69-bedc-6fc44b069ba1)
-![Screenshot 2025-06-08 104724](https://github.com/user-attachments/assets/f3fa8fd3-2398-421e-8a40-2907482af212)
+
 
 🔐 Login with Clerk
-![Screenshot 2025-06-08 105529](https://github.com/user-attachments/assets/42aece12-066e-4be5-b496-0698986c4ce3)
+![image alt](https://github.com/Chirag-Zanpadiya/AutoBGOne/blob/6d923b275f6cc76272b95ca90e58cdb61f08c1aa/frontend/public/Screenshot%202025-06-08%20104713.png)
 ![Screenshot 2025-06-08 105540](https://github.com/user-attachments/assets/5c2af01c-2b09-4ac3-a6ab-598378a2b5cc)
 
 📤 Upload Image & Remove Background
