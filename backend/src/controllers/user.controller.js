@@ -3,7 +3,7 @@
 import { Webhook } from "svix";
 import { User } from "../models/user.model.js";
 import razorpay from "razorpay";
-import Razorpay from "razorpay";
+// import Razorpay from "razorpay";
 import { Transaction } from "../models/transaction.model.js";
 import Razorpay from "razorpay";
 const clerkWebhooks = async (req, res) => {
@@ -101,7 +101,7 @@ const userCredits = async (req, res) => {
 
 // GateWay Initialize
 
-const razorpayInstance = new Razorpay({
+const razorpayInstance = new razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
