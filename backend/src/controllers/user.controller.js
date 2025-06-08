@@ -4,25 +4,95 @@ import { Ordering, Webhook } from "svix";
 import { User } from "../models/user.model.js";
 import razorpay from "razorpay";
 import { Transaction } from "../models/transaction.model.js";
-const clerkWebhooks = async (req, res) => {
-  try {
-    // create svix instance with clerk webhooks secret
-   console.log("user.controller.js :: clerkwebhooks :: req.body ::", req.body);
+// const clerkWebhooks = async (req, res) => {
+//   try {
+//     // create svix instance with clerk webhooks secret
+//    console.log("user.controller.js :: clerkwebhooks :: req.body ::", req.body);
 
     
 
+//     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
+
+//     await whook.verify(JSON.stringify(req.body), {
+//       "svix-id": req.headers["svix-id"],
+//       "svix-timestamp": req.headers["svix-timestamp"],
+//       "svix-signature": req.headers["svix-signature"],
+//     });
+
+//     const { data, type } = req.body;
+
+//     switch (type) {
+//       case "user.created": {
+//         const userData = {
+//           clerkId: data.id,
+//           email: data.email_addresses[0].email_address,
+//           firstName: data.first_name,
+//           lastName: data.last_name,
+//           photo: data.image_url,
+//         };
+
+//         console.log("user.controller.js ::  New user created:", userData);
+
+//         await User.create(userData);
+//         res.json({});
+//         break;
+//       }
+//       case "user.updated": {
+//         const userData = {
+//           email: data.email_addresses[0].email_address,
+//           firstName: data.first_name,
+//           lastName: data.last_name,
+//           photo: data.image_url,
+//         };
+
+//         await User.findOneAndUpdate({ clerkId: data.id }, userData);
+//         res.json({});
+//         break;
+//       }
+//       case "user.deleted": {
+//         await User.findOneAndDelete({ clerkId: data.id });
+//         res.json({});
+//         break;
+//       }
+//       default:
+//         break;
+//     }
+//   } catch (error) {
+//     //
+//     console.log(
+//       `src :: controllers :: user.controller.js :: clerkWebhooks :: error :: ${error.message}`
+//     );
+
+//     res.json({ success: false, message: error.message });
+//   }
+// };
+
+// TODO: API controller function to get user avaiable credit and name
+
+
+import { buffer } from "node:stream/consumers";
+
+const clerkWebhooks = async (req, res) => {
+  try {
+    // Step 1: Parse the raw body buffer
+    const rawBody = await buffer(req); // from node:stream/consumers
+    const bodyString = rawBody.toString();
+    const parsedBody = JSON.parse(bodyString);
+
+    console.log("Parsed webhook body ::", parsedBody);
+
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
-    await whook.verify(JSON.stringify(req.body), {
+    await whook.verify(bodyString, {
       "svix-id": req.headers["svix-id"],
       "svix-timestamp": req.headers["svix-timestamp"],
       "svix-signature": req.headers["svix-signature"],
     });
 
-    const { data, type } = req.body;
+    const { data, type } = parsedBody;
 
     switch (type) {
-      case "user.created": {
+      case "user.created":
         const userData = {
           clerkId: data.id,
           email: data.email_addresses[0].email_address,
@@ -31,43 +101,34 @@ const clerkWebhooks = async (req, res) => {
           photo: data.image_url,
         };
 
-        console.log("user.controller.js ::  New user created:", userData);
+        console.log("Clerk user to create:", userData);
 
         await User.create(userData);
-        res.json({});
         break;
-      }
-      case "user.updated": {
-        const userData = {
-          email: data.email_addresses[0].email_address,
-          firstName: data.first_name,
-          lastName: data.last_name,
-          photo: data.image_url,
-        };
 
-        await User.findOneAndUpdate({ clerkId: data.id }, userData);
-        res.json({});
+      case "user.updated":
+        await User.findOneAndUpdate(
+          { clerkId: data.id },
+          {
+            email: data.email_addresses[0].email_address,
+            firstName: data.first_name,
+            lastName: data.last_name,
+            photo: data.image_url,
+          }
+        );
         break;
-      }
-      case "user.deleted": {
+
+      case "user.deleted":
         await User.findOneAndDelete({ clerkId: data.id });
-        res.json({});
-        break;
-      }
-      default:
         break;
     }
-  } catch (error) {
-    //
-    console.log(
-      `src :: controllers :: user.controller.js :: clerkWebhooks :: error :: ${error.message}`
-    );
 
-    res.json({ success: false, message: error.message });
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error("Webhook error:", error.message);
+    res.status(400).json({ success: false, message: error.message });
   }
 };
-
-// TODO: API controller function to get user avaiable credit and name
 
 const userCredits = async (req, res) => {
   try {
