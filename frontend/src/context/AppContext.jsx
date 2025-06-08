@@ -18,20 +18,31 @@ const AppContextProvider = (props) => {
   const navigate = useNavigate();
 
   const { getToken } = useAuth();
+  console.log("getToken :>> ");
+  console.log(getToken);
 
   // User SignIn hai uska direct package import kiya clerk se
   const { isSignedIn } = useUser();
+  console.log("isSignedIn :>> ");
+  console.log(isSignedIn);
 
   // agar image upload karte time agar user login nahi hai toh signin ka pop dikhao
   const { openSignIn } = useClerk();
+  console.log("openSignIn :>> ");
+  console.log(openSignIn);
   const loadCreditsData = async () => {
     try {
       const token = await getToken();
       const { data } = await axios.get(backendUrl + "/api/user/credits", {
         headers: {
           token,
+          // add ths new from code
+          // "Content-Type": "multipart/form-data",
         },
       });
+
+      console.log("data :>> ");
+      console.log(data);
 
       //   data ke andar ka success message true hai toh
       if (data.success) {
@@ -47,6 +58,10 @@ const AppContextProvider = (props) => {
     try {
       console.log(`AppContext.jsx :: removeBG :: tryBlock`);
       console.log(image);
+
+      if (!image) {
+        throw new Error("No image file selected.");
+      }
 
       // agar image upload kare time agar user login nahi hai toh pehle login karao
       if (!isSignedIn) {
@@ -86,7 +101,7 @@ const AppContextProvider = (props) => {
         }
       }
     } catch (error) {
-      console.log('appcontext.jsx ::romoveBG :: catch bloack', error)
+      console.log("appcontext.jsx ::romoveBG :: catch bloack", error);
       toast.error(error.message);
     }
   };
@@ -99,7 +114,8 @@ const AppContextProvider = (props) => {
     image,
     setImage,
     removeBG,
-    resultImage,setResultImage
+    resultImage,
+    setResultImage,
   };
 
   return (

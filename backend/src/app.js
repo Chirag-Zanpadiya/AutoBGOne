@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
-
+// import { clerkWebhooks } from "./controllers/user.controller.js";
 // const app = express();
 
 // app.use(cors());
@@ -30,24 +30,22 @@ import cors from "cors";
 // app.use("/api/image" , imageRouter)
 // export { app };
 
-
-
-
-
 const app = express();
 
 // Handle Clerk raw-body webhook before JSON parser
-app.use("/api/user/webhooks", express.raw({ type: "*/*" }));
-
+// app.use("/api/user/webhooks", express.raw({ type: "*/*" }));
 
 // Now parse JSON and urlencoded after that
 // app.use(express.json({ limit: "32kb" }));
 // app.use(express.urlencoded({ extended: true, limit: "32kb" }));
-app.use(cors({
-  origin: "*", // or restrict to vercel URL if needed
-}));
+app.use(
+  cors({
+    origin: "*", // or restrict to vercel URL if needed
+  })
+);
 app.use(express.static("public"));
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // Routers
 import userRouter from "./routes/user.routes.js";
 import imageRouter from "./routes/image.routes.js";
@@ -57,6 +55,8 @@ app.use("/api/image", imageRouter);
 
 export { app };
 
+//  new GPT code :: // app.js
 
+// only for this exact path, we want raw
 
-
+// …then later…

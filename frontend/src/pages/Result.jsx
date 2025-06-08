@@ -35,7 +35,7 @@ const Result = () => {
 
             <div className="rounded-md border border-gray-300 h-full relative bg-layer overflow-hidden">
               <img
-                src={resultImage ? resultImage : ""}
+                src={resultImage ? resultImage : "INTERNAL SERVER ERROR"}
                 alt="right_image_wo_bg"
               />
 

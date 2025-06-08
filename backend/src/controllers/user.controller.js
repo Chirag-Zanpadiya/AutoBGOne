@@ -1,15 +1,15 @@
 // TODO: API controller function to manage clerk user with databases
 // http://localhost:3000/api/user/webhooks
-import { Ordering, Webhook } from "svix";
+import { Webhook } from "svix";
 import { User } from "../models/user.model.js";
 import razorpay from "razorpay";
+import Razorpay from "razorpay";
 import { Transaction } from "../models/transaction.model.js";
+import Razorpay from "razorpay";
 const clerkWebhooks = async (req, res) => {
   try {
     // create svix instance with clerk webhooks secret
-   console.log("user.controller.js :: clerkwebhooks :: req.body ::", req.body);
-
-    
+    console.log("user.controller.js :: clerkwebhooks :: req.body ::", req.body);
 
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
 
@@ -25,7 +25,7 @@ const clerkWebhooks = async (req, res) => {
       case "user.created": {
         const userData = {
           clerkId: data.id,
-          email: data.email_addresses[0].email_address,
+          email: data.email_addresses[0]?.email_address,
           firstName: data.first_name,
           lastName: data.last_name,
           photo: data.image_url,
@@ -34,19 +34,25 @@ const clerkWebhooks = async (req, res) => {
         console.log("user.controller.js ::  New user created:", userData);
 
         await User.create(userData);
-        res.json({});
+        res.json({
+          statusCode: 201,
+          message: "User created successfully",
+        });
         break;
       }
       case "user.updated": {
         const userData = {
-          email: data.email_addresses[0].email_address,
+          email: data.email_addresses[0]?.email_address,
           firstName: data.first_name,
           lastName: data.last_name,
           photo: data.image_url,
         };
 
         await User.findOneAndUpdate({ clerkId: data.id }, userData);
-        res.json({});
+        res.json({
+          statusCode: 200,
+          message: "User updated successfully",
+        });
         break;
       }
       case "user.deleted": {
@@ -68,9 +74,6 @@ const clerkWebhooks = async (req, res) => {
 };
 
 // TODO: API controller function to get user avaiable credit and name
-
-
-
 
 const userCredits = async (req, res) => {
   try {
@@ -98,7 +101,7 @@ const userCredits = async (req, res) => {
 
 // GateWay Initialize
 
-const razorpayInstance = new razorpay({
+const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
