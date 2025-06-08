@@ -7,13 +7,15 @@ const authUser = async (req, res, next) => {
     //TODO: if this project is in the production then see documentation of :: express clerk middleware
 
     const { token } = req.headers;
-
+    
+    
     if (!token) {
       return res.json({ success: false, message: "User is Not Authenticated" });
     }
-
+    
     const token_decode = jwt.decode(token);
     // console.log("token_decoded");
+    console.log("middler.auth.js :: Decoded token::", token_decode);
 
     // console.log(token_decode.clerkId);
 
